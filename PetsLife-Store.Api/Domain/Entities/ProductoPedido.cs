@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    class ProductoPedido
+    public class ProductoPedido
     {
         public int ProductoPedidoId { get; set; }
         public int Cantidad { get; set; }

@@ -5,6 +5,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using AccessData;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using Domain.Entities;
+using AccessData.Validation;
 
 namespace PetsLife_Store.Api
 {
@@ -22,11 +26,17 @@ namespace PetsLife_Store.Api
         {
             var sqlConn = Configuration.GetConnectionString("SQLConnection");
 
-            services.AddDbContext<StoreDbContext>(opt => opt.UseSqlServer(sqlConn));
+            services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(sqlConn));
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
 
             services.AddSwaggerGen();
+
+            services.AddTransient<IValidator<Carrito>, CarritoValidator>();
+            services.AddTransient<IValidator<Comprador>, CompradorValidator>();
+            services.AddTransient<IValidator<Producto>, ProductoValidator>();
+            services.AddTransient<IValidator<ProductoPedido>, ProductoPedidoValidator>();
+            services.AddTransient<IValidator<Tienda>, TiendaValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

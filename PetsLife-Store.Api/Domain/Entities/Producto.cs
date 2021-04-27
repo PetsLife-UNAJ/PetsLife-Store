@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    class Producto
+    public class Producto
     {
         public int ProductoId { get; set; }
         public string Nombre { get; set; }
@@ -16,7 +16,7 @@ namespace Domain.Entities
         public int Precio { get; set; }
         public int TiendaId { get; set; }
         public Tienda Tienda { get; set; }
-        public ProductoPedido ProductoPedido { get; set; }
+        // public ProductoPedido ProductoPedido { get; set; } 
 
 
     }
