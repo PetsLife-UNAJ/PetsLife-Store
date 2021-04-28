@@ -9,6 +9,9 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using Domain.Entities;
 using AccessData.Validation;
+using AccessData.Commands.Repository;
+using AccessData.Commands;
+using Application.Services;
 
 namespace PetsLife_Store.Api
 {
@@ -29,6 +32,9 @@ namespace PetsLife_Store.Api
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(sqlConn));
 
             services.AddControllers().AddFluentValidation();
+
+            services.AddTransient<IGenericsRepository, GenericsRepository>();
+            services.AddTransient<IProductoService, ProductoService>();
 
             services.AddSwaggerGen();
 
