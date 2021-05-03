@@ -1,6 +1,8 @@
-﻿using Application.Services;
+﻿using AccessData.Queries;
+using Application.Services;
 using Domain.DTOs;
 using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -33,5 +35,34 @@ namespace PetsLife_Store.Api.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpGet("{id}")]
+        //[ProducesResponseType(typeof(Producto), StatusCodes.Status201Created)]
+        public IActionResult GetProductoById(int id)
+        {
+            try
+            {
+               
+                return new JsonResult(_service.GetProductoById(id)) { StatusCode = 201 };
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet("/Productos")]
+        //[ProducesResponseType(typeof(Producto), StatusCodes.Status201Created)]
+        public IActionResult GetProductos()
+        {
+            try
+            {
+
+                return new JsonResult(_service.GetProductos()) { StatusCode = 201 };
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿using AccessData.Commands.Repository;
 using Domain.DTOs;
 using Domain.Entities;
+using Domain.Interfaces;
+using Domain.Interfaces.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {   
-    public interface IProductoService
-    {
-        Producto CreateProducto(ProductoDto producto);
-    }
+   
     public class ProductoService : IProductoService
     {
         private readonly IGenericsRepository _repository;
-        public ProductoService(IGenericsRepository repository)
+        private readonly IProductoQuery _query;
+
+        public ProductoService(IGenericsRepository repository,IProductoQuery query)
         {
             _repository = repository;
+            _query = query;
         }
         public Producto CreateProducto(ProductoDto producto)
         {
@@ -35,5 +37,22 @@ namespace Application.Services
 
             return entity;
         }
+
+       public List<ProductoDto> GetProductoById(int id)
+        {
+            return _query.GetProductoById(id);
+        }
+        public List<ProductoDto> GetProductos()
+        {
+            return _query.GetProductos();//
+        }
+        //public IQueryable GetProductoById(int id)
+        //{
+        //  return  _repository.GetProductoById(id);
+        //}
+        //public IQueryable GetProductos()
+        //{
+        //    return _repository.GetProductos();
+        //}
     }
 }
