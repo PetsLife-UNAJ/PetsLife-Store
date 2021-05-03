@@ -12,6 +12,12 @@ using AccessData.Validation;
 using AccessData.Commands.Repository;
 using AccessData.Commands;
 using Application.Services;
+using Domain.Interfaces;
+using SqlKata.Compilers;
+using System.Data;
+using System.Data.SqlClient;
+using Domain.Interfaces.Queries;
+using AccessData.Queries;
 
 namespace PetsLife_Store.Api
 {
@@ -32,6 +38,14 @@ namespace PetsLife_Store.Api
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(sqlConn));
 
             services.AddControllers().AddFluentValidation();
+            //SQLKATA
+            services.AddTransient<Compiler, SqlServerCompiler>();
+            services.AddTransient<IDbConnection>(b =>
+            {
+                return new SqlConnection(sqlConn);
+            });
+
+            services.AddTransient<IProductoQuery, ProductoQuery>();
 
             services.AddTransient<IGenericsRepository, GenericsRepository>();
             services.AddTransient<IProductoService, ProductoService>();

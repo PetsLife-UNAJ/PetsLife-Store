@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SqlKata" Version="2.3.2" />
+    <PackageReference Include="SqlKata.Execution" Version="2.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AccessData\AccessData.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
