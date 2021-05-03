@@ -28,7 +28,8 @@ namespace Application.Services
                 Categoria = producto.Categoria,
                 Imagen = producto.Imagen,
                 CantidadStock = producto.CantidadStock,
-                Precio = producto.Precio
+                Precio = producto.Precio,
+                TiendaId = 1
             };
             _repository.Add<Producto>(entity);
 

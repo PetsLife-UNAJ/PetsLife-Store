@@ -15,7 +15,7 @@ namespace Domain.Entities
         public int CantidadStock { get; set; }
         public int Precio { get; set; }
         public int TiendaId { get; set; }
-        public Tienda Tienda { get; set; }
+      //  public Tienda Tienda { get; set; }
         // public ProductoPedido ProductoPedido { get; set; } 
 
 
