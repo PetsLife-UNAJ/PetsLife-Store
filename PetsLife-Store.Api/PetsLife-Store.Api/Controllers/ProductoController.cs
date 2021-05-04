@@ -64,5 +64,53 @@ namespace PetsLife_Store.Api.Controllers
             }
         }
 
+        [HttpDelete("{Id}")]
+        [ProducesResponseType(typeof(Producto), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(Producto), StatusCodes.Status404NotFound)]
+
+        public IActionResult DeleteProducto(int Id)
+        {
+            try
+            {
+                if (_service.DeleteProducto(Id))
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("{Id}")]
+        [ProducesResponseType(typeof(Producto), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(Producto), StatusCodes.Status404NotFound)]
+
+        public IActionResult PutMercaderia(int Id, ProductoDto productoDto)
+        {
+            try
+            {
+                if (_service.UpdateProducto(Id, productoDto))
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
     }
 }

@@ -11,6 +11,7 @@ namespace AccessData.Commands.Repository
         void Add<T>(T entity) where T : class;
         void Update<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
+        T Exists<T>(int id) where T : class;
 
         public IQueryable GetProductoById(int id);
         public IQueryable GetProductos();

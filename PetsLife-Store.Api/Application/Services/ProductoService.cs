@@ -1,8 +1,10 @@
 ﻿using AccessData.Commands.Repository;
+using AccessData.Validation;
 using Domain.DTOs;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Interfaces.Queries;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,19 +35,63 @@ namespace Application.Services
                 Precio = producto.Precio,
                 TiendaId = 1
             };
+
+            ProductoValidator validator = new ProductoValidator();
+            validator.ValidateAndThrow(entity);
+
             _repository.Add<Producto>(entity);
 
             return entity;
         }
 
-       public ResponseGetProductoById GetProductoById(int id)
+        public bool DeleteProducto(int id)
+        {
+            Producto producto = _repository.Exists<Producto>(id);
+            if(producto == null)
+            {
+                return false;
+            }
+            else
+            {
+                _repository.Delete<Producto>(producto);
+                return true;
+            }
+        }
+
+        public ResponseGetProductoById GetProductoById(int id)
         {
             return _query.GetProductoById(id);
         }
         public List<ProductoDto> GetProductos()
         {
-            return _query.GetProductos();//
+            return _query.GetProductos();
         }
+
+        public bool UpdateProducto(int id, ProductoDto productoDto)
+        {
+            Producto producto = _repository.Exists<Producto>(id);
+            if(producto == null)
+            {
+                return false;
+            }
+            else
+            {
+                producto.Nombre = productoDto.Nombre;
+                producto.Categoria = productoDto.Categoria;
+                producto.Imagen = productoDto.Imagen;
+                producto.CantidadStock = productoDto.CantidadStock;
+                producto.Precio = productoDto.Precio;
+                producto.TiendaId = 1;
+
+                ProductoValidator validator = new ProductoValidator();
+                validator.ValidateAndThrow(producto);
+
+                _repository.Update<Producto>(producto);
+                return true;
+            }
+        }
+
+
         //public IQueryable GetProductoById(int id)
         //{
         //  return  _repository.GetProductoById(id);

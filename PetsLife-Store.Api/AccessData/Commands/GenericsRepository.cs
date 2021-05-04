@@ -24,11 +24,19 @@ namespace AccessData.Commands
         public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);
+            _context.SaveChanges();
         }
 
         public void Update<T>(T entity) where T : class
         {
             _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public T Exists<T>(int id) where T : class
+        {
+            var x = _context.Find<T>(id);
+            return x;
         }
 
         public IQueryable GetProductoById(int id)
