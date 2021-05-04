@@ -36,13 +36,13 @@ namespace PetsLife_Store.Api.Controllers
             }
         }
         [HttpGet("{id}")]
-        //[ProducesResponseType(typeof(Producto), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Producto), StatusCodes.Status200OK)]
         public IActionResult GetProductoById(int id)
         {
             try
             {
                
-                return new JsonResult(_service.GetProductoById(id)) { StatusCode = 201 };
+                return new JsonResult(_service.GetProductoById(id)) { StatusCode = 200 };
             }
             catch (Exception e)
             {
@@ -50,13 +50,13 @@ namespace PetsLife_Store.Api.Controllers
             }
         }
         [HttpGet("/Productos")]
-        //[ProducesResponseType(typeof(Producto), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Producto), StatusCodes.Status200OK)]
         public IActionResult GetProductos()
         {
             try
             {
 
-                return new JsonResult(_service.GetProductos()) { StatusCode = 201 };
+                return new JsonResult(_service.GetProductos()) { StatusCode = 200 };
             }
             catch (Exception e)
             {

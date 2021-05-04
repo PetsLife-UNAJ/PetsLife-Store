@@ -10,7 +10,7 @@ namespace Domain.Interfaces.Queries
    public interface IProductoQuery
     {
 
-        public List<ProductoDto> GetProductoById(int id);
+        public ResponseGetProductoById GetProductoById(int id);
         public List<ProductoDto> GetProductos();
 
     }

@@ -38,7 +38,7 @@ namespace Application.Services
             return entity;
         }
 
-       public List<ProductoDto> GetProductoById(int id)
+       public ResponseGetProductoById GetProductoById(int id)
         {
             return _query.GetProductoById(id);
         }

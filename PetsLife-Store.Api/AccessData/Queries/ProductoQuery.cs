@@ -23,15 +23,16 @@ namespace AccessData.Queries
             this.sqlKatacompiler = sqlKatacompiler;
         }
 
-        public List<ProductoDto> GetProductoById(int id)
+        public ResponseGetProductoById GetProductoById(int id)
         {
             var db = new QueryFactory(connection, sqlKatacompiler);
             var producto = db.Query("Productos").Select(
-                "Nombre", "Categoria", "Imagen"
+                "ProductoId", "Nombre", "Categoria", "Imagen"
                 , "CantidadStock","Precio"
                 ).Where("ProductoId", "=", id);
-            var query = producto.Get<ProductoDto>();
-            return query.ToList();
+            var query = producto.Get<ResponseGetProductoById>();
+            // return query.ToList();
+            return query.FirstOrDefault();
         }
 
         public List<ProductoDto> GetProductos()

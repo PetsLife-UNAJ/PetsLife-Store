@@ -49,6 +49,7 @@ namespace PetsLife_Store.Api
 
             services.AddTransient<IGenericsRepository, GenericsRepository>();
             services.AddTransient<IProductoService, ProductoService>();
+            services.AddTransient<ICarritoService, CarritoService>();
 
             services.AddSwaggerGen();
 

@@ -11,7 +11,7 @@ namespace Domain.Interfaces
     public interface IProductoService
     {
         Producto CreateProducto(ProductoDto producto);
-        public List<ProductoDto> GetProductoById(int id);
+        public ResponseGetProductoById GetProductoById(int id);
         public List<ProductoDto> GetProductos();
 
     }
