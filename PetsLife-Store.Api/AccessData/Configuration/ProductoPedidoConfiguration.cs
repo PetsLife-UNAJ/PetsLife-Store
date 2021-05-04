@@ -17,6 +17,8 @@ namespace AccessData.Configuration
             builder.HasIndex(e => e.ProductoPedidoId);
             builder.Property(e => e.Cantidad).HasDefaultValue(1);
             builder.Property(e => e.ProductoId).IsRequired();
+
+            builder.HasOne(e => e.Carrito).WithMany(c => c.ProductoPedidos).IsRequired();
         }
 
     }

@@ -17,11 +17,12 @@ namespace Application.Services
         private readonly IGenericsRepository _repository;
         private readonly IProductoQuery _query;
 
-        public ProductoService(IGenericsRepository repository,IProductoQuery query)
+        public ProductoService(IGenericsRepository repository, IProductoQuery query)
         {
             _repository = repository;
             _query = query;
         }
+
         public Producto CreateProducto(ProductoDto producto)
         {
             var entity = new Producto
@@ -44,7 +45,7 @@ namespace Application.Services
         }
         public List<ProductoDto> GetProductos()
         {
-            return _query.GetProductos();//
+            return _query.GetProductos();
         }
         //public IQueryable GetProductoById(int id)
         //{

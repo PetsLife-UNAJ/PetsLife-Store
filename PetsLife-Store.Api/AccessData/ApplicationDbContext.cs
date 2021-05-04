@@ -19,11 +19,11 @@ namespace AccessData
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new CarritoConfiguration().Configure(modelBuilder.Entity<Carrito>());
-            new CompradorConfiguration().Configure(modelBuilder.Entity<Comprador>());
-            new ProductoConfiguration().Configure(modelBuilder.Entity<Producto>());
-            new ProductoPedidoConfiguration().Configure(modelBuilder.Entity<ProductoPedido>());
-            new TiendaConfiguration().Configure(modelBuilder.Entity<Tienda>());
+            new CarritoConfiguration()          .Configure(modelBuilder.Entity<Carrito>());
+            new CompradorConfiguration()        .Configure(modelBuilder.Entity<Comprador>());
+            new ProductoConfiguration()         .Configure(modelBuilder.Entity<Producto>());
+            new ProductoPedidoConfiguration()   .Configure(modelBuilder.Entity<ProductoPedido>());
+            new TiendaConfiguration()           .Configure(modelBuilder.Entity<Tienda>());
         }
 
     }

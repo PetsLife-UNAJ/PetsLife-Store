@@ -2,6 +2,8 @@
 using Domain.DTOs;
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.Interfaces.Queries;
+using Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,45 +12,18 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {   
-    public interface ICarritoService
-    {
-        GenericsCreatedResponseDto CreateCarrito(CreateCarritoRequestDto carritoDto);
-    }
-    public class CarritoService : ICarritoService  
+    public class CarritoService  : ICarritoService
     {
         private readonly IGenericsRepository _repository;
-        private readonly IProductoService _productoService;
-        public CarritoService(IGenericsRepository repository, IProductoService productoService)
+        private readonly ICarritoQuery _query;
+
+        public CarritoService(IGenericsRepository repository, ICarritoQuery query)
         {
             _repository = repository;
-            _productoService = productoService;
+            _query = query;
         }
 
-        public GenericsCreatedResponseDto CreateCarrito(CreateCarritoRequestDto carritoDto)
-        {
-            
-            List <ResponseGetProductoById> listaProductos = new List<ResponseGetProductoById> ();
-            foreach (var item in carritoDto.Productos)
-            {
-                ResponseGetProductoById producto = _productoService.GetProductoById(item) ;
-                listaProductos.Add(producto);
-            }
-            int total = CalcularPrecioTotal(listaProductos);
-            var entity = new Carrito
-            {
-                CompradorId = carritoDto.CompradorId,
-                PrecioTotal = total
-            };
-            _repository.Add(entity);
-
-            foreach (ResponseGetProductoById item in listaProductos)
-            {
-                RegistrarProductoPedido(item.ProductoId, entity.CarritoId);
-            }
-
-            return new GenericsCreatedResponseDto { Entity = "Carrito", Id = entity.CarritoId.ToString() };
-        }
-        
+        // cambiar, el precio total se obtiene con la lista de todos los productos del carrito
         public int CalcularPrecioTotal(List<ResponseGetProductoById> productos)
         {
             int total = 0;
@@ -58,17 +33,22 @@ namespace Application.Services
                 total += item.Precio;
             }
             return total;
-        }  
+        }
 
-        private void RegistrarProductoPedido(int idproducto, int idcarrito)
+        public void AddProductoPedido(int idproducto, int idcarrito)
         {
-            var entity = new ProductoPedido
+            ProductoPedido productoPedido = new()
             {
                 ProductoId = idproducto,
-                CarritoId = idcarrito
+                CarritoId = idcarrito,
+                Cantidad = 1
             };
-            _repository.Add(entity);
+            _repository.Add(productoPedido);
+        }
 
+        public CarritoDTO GetCarritoById(int idCarrito)
+        {
+            return _query.GetCarritoById(idCarrito);
         }
     }
 }

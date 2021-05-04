@@ -4,20 +4,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using AccessData;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using Domain.Entities;
+using AccessData;
 using AccessData.Validation;
 using AccessData.Commands.Repository;
 using AccessData.Commands;
+using AccessData.Queries;
 using Application.Services;
 using Domain.Interfaces;
 using SqlKata.Compilers;
 using System.Data;
 using System.Data.SqlClient;
 using Domain.Interfaces.Queries;
-using AccessData.Queries;
+using Domain.Interfaces.Services;
 
 namespace PetsLife_Store.Api
 {
@@ -29,8 +30,6 @@ namespace PetsLife_Store.Api
         }
 
         public IConfiguration Configuration { get; }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             var sqlConn = Configuration.GetConnectionString("SQLConnection");
@@ -38,7 +37,8 @@ namespace PetsLife_Store.Api
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(sqlConn));
 
             services.AddControllers().AddFluentValidation();
-            //SQLKATA
+
+            // SQLKATA
             services.AddTransient<Compiler, SqlServerCompiler>();
             services.AddTransient<IDbConnection>(b =>
             {
@@ -46,6 +46,7 @@ namespace PetsLife_Store.Api
             });
 
             services.AddTransient<IProductoQuery, ProductoQuery>();
+            services.AddTransient<ICarritoQuery, CarritoQuery>();
 
             services.AddTransient<IGenericsRepository, GenericsRepository>();
             services.AddTransient<IProductoService, ProductoService>();

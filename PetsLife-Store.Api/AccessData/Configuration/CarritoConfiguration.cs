@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,9 +9,15 @@ namespace AccessData.Configuration
 
         public void Configure(EntityTypeBuilder<Carrito> builder)
         {
-            // Precio total se calcula por lo que no lo coloco aca como required
-            // builder.Property(e => e.Comprador).IsRequired();
-            builder.Property(e => e.CompradorId).IsRequired();
+            builder.HasIndex(e => e.CarritoId);
+            builder.Property(e => e.PrecioTotal).HasDefaultValue(0);
+
+            builder.HasData(new Carrito[]
+            {
+                new() { CarritoId = 1, CompradorId = 1 },
+                new() { CarritoId = 2, CompradorId = 2 },
+                new() { CarritoId = 3, CompradorId = 3 }
+            });
         }
 
     }

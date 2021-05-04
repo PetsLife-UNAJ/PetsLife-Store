@@ -2,16 +2,13 @@
 using Domain.Interfaces.Queries;
 using SqlKata.Compilers;
 using SqlKata.Execution;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccessData.Queries
 {
-    public class ProductoQuery:IProductoQuery
+    public class ProductoQuery : IProductoQuery
     {
         private readonly IDbConnection connection;
         private readonly Compiler sqlKatacompiler;

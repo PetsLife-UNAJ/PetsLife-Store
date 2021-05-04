@@ -1,5 +1,7 @@
 ﻿using Application.Services;
 using Domain.DTOs;
+using Domain.Entities;
+using Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,14 +21,29 @@ namespace PetsLife_Store.Api.Controllers
             _service = service;
         }
 
-
-        [HttpPost]
-        [ProducesResponseType(typeof(GenericsCreatedResponseDto), StatusCodes.Status201Created)]
-        public IActionResult Post(CreateCarritoRequestDto carrito)
+        [HttpPost("{idproducto}, {idcarrito}")]
+        [ProducesResponseType(204)]
+        public IActionResult AddProductoPedido(int idproducto, int idcarrito)
         {
             try
             {
-                return new JsonResult(_service.CreateCarrito(carrito)) { StatusCode = 201 };
+                _service.AddProductoPedido(idproducto, idcarrito);
+                return new JsonResult(null);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Carrito), StatusCodes.Status200OK)]
+        public IActionResult GetCarritoById(int id)
+        {
+            try
+            {
+                return new JsonResult(_service.GetCarritoById(id)) { StatusCode = 200 };
             }
             catch (Exception e)
             {
