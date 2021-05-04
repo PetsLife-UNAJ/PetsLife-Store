@@ -37,7 +37,7 @@ namespace AccessData.Queries
             var db = new QueryFactory(connection, sqlKatacompiler);
             var producto = db.Query("Productos").Select(
                 "Nombre", "Categoria", "Imagen"
-                , "CantidadStock", "Precio"
+                , "CantidadStock", "Precio", "ProductoId"
                 );
             var query = producto.Get<ProductoDto>();
             return query.ToList();

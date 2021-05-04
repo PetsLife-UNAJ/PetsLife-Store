@@ -13,6 +13,8 @@ namespace Domain.Interfaces
         Producto CreateProducto(ProductoDto producto);
         public ResponseGetProductoById GetProductoById(int id);
         public List<ProductoDto> GetProductos();
+        bool DeleteProducto(int id);
+        bool UpdateProducto(int id, ProductoDto productoDto);
 
     }
 }
