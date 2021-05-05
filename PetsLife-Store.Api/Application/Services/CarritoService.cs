@@ -64,10 +64,13 @@ namespace Application.Services
             _repository.Update<Carrito>(carrito);
         }
 
-        public void RemoveProductoPedidoFromCarrito(int idProductoPedido)
+        public bool RemoveProductoPedidoFromCarrito(int idProductoPedido)
         {
             ProductoPedido pp = _query.GetProductoPedidoById(idProductoPedido);
+            if (pp == null) return false;
+
             _repository.Delete(pp);
+            return true;
         }
 
         public ResponseGetCarritoById GetCarritoById(int idCarrito)

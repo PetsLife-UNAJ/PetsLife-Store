@@ -41,8 +41,7 @@ namespace PetsLife_Store.Api.Controllers
         {
             try
             {
-                _service.RemoveProductoPedidoFromCarrito(idProductoPedido);
-                return new JsonResult(null);
+                return new JsonResult(_service.RemoveProductoPedidoFromCarrito(idProductoPedido)) { StatusCode = 200 };
             }
             catch (Exception e)
             {
