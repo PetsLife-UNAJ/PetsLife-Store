@@ -1,4 +1,5 @@
 ﻿using Domain.DTOs;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Domain.Interfaces.Queries
     public interface ICarritoQuery
     {
         public ResponseGetCarritoById GetCarritoById(int id);
+        public ProductoPedido GetProductoPedidoById(int idProductoPedido);
     }
 }

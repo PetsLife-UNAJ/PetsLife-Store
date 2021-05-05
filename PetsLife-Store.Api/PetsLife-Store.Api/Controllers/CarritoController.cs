@@ -36,6 +36,20 @@ namespace PetsLife_Store.Api.Controllers
             }
         }
 
+        [HttpDelete("{idProductoPedido}")]
+        [ProducesResponseType(200)]
+        public IActionResult RemoveProductoPedidoFromCarrito(int idProductoPedido)
+        {
+            try
+            {
+                _service.RemoveProductoPedidoFromCarrito(idProductoPedido);
+                return new JsonResult(null);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Carrito), StatusCodes.Status200OK)]

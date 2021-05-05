@@ -35,6 +35,7 @@ namespace PetsLife_Store.Api.Controllers
                 return BadRequest(e.Message);
             }
         }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status200OK)]
         public IActionResult GetProductoById(int id)
@@ -49,6 +50,7 @@ namespace PetsLife_Store.Api.Controllers
                 return BadRequest(e.Message);
             }
         }
+
         [HttpGet("/Productos")]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status200OK)]
         public IActionResult GetProductos()
@@ -67,7 +69,6 @@ namespace PetsLife_Store.Api.Controllers
         [HttpDelete("{Id}")]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status404NotFound)]
-
         public IActionResult DeleteProducto(int Id)
         {
             try
@@ -90,7 +91,6 @@ namespace PetsLife_Store.Api.Controllers
         [HttpPut("{Id}")]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status404NotFound)]
-
         public IActionResult PutMercaderia(int Id, ProductoDto productoDto)
         {
             try
@@ -111,6 +111,23 @@ namespace PetsLife_Store.Api.Controllers
             }
 
         }
+
+
+        [HttpPut("{idProducto}, {newStock}")]
+        [ProducesResponseType(typeof(Producto), StatusCodes.Status204NoContent)]
+        public IActionResult UpdateProductoStock(int idProducto, int newStock)
+        {
+            try
+            {
+                return new JsonResult(_service.UpdateProductoStock(idProducto, newStock)) { StatusCode = 200 };
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
 
     }
 }

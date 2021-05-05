@@ -71,25 +71,31 @@ namespace Application.Services
         public bool UpdateProducto(int id, ProductoDto productoDto)
         {
             Producto producto = _repository.Exists<Producto>(id);
-            if(producto == null)
-            {
-                return false;
-            }
-            else
-            {
-                producto.Nombre = productoDto.Nombre;
-                producto.Categoria = productoDto.Categoria;
-                producto.Imagen = productoDto.Imagen;
-                producto.CantidadStock = productoDto.CantidadStock;
-                producto.Precio = productoDto.Precio;
-                producto.TiendaId = 1;
+            if(producto == null) return false;
 
-                ProductoValidator validator = new ProductoValidator();
-                validator.ValidateAndThrow(producto);
+            producto.Nombre = productoDto.Nombre;
+            producto.Categoria = productoDto.Categoria;
+            producto.Imagen = productoDto.Imagen;
+            producto.CantidadStock = productoDto.CantidadStock;
+            producto.Precio = productoDto.Precio;
+            producto.TiendaId = 1;
 
-                _repository.Update<Producto>(producto);
-                return true;
-            }
+            ProductoValidator validator = new();
+            validator.ValidateAndThrow(producto);
+
+            _repository.Update<Producto>(producto);
+            return true;
+        }
+
+        public bool UpdateProductoStock(int idProducto, int newStock)
+        {
+            Producto producto = _repository.Exists<Producto>(idProducto);
+            if (producto == null || newStock < 0) return false;
+
+            producto.CantidadStock = newStock;
+            _repository.Update(producto);
+
+            return true;
         }
 
 

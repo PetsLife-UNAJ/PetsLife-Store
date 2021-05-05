@@ -12,6 +12,7 @@ namespace Domain.Interfaces.Services
         public ResponseGetCarritoById GetCarritoById(int id);
         public int CalcularPrecioTotal(List<ResponseGetProductoById> productos);
         public void AddProductoPedido(int idproducto, int idcarrito);
+        public void RemoveProductoPedidoFromCarrito(int idProductoPedido);
 
     }
 }

@@ -46,6 +46,12 @@ namespace Application.Services
             _repository.Add(productoPedido);
         }
 
+        public void RemoveProductoPedidoFromCarrito(int idProductoPedido)
+        {
+            ProductoPedido pp = _query.GetProductoPedidoById(idProductoPedido);
+            _repository.Delete(pp);
+        }
+
         public ResponseGetCarritoById GetCarritoById(int idCarrito)
         {
             return _query.GetCarritoById(idCarrito);

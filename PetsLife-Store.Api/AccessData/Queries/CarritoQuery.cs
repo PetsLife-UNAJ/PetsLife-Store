@@ -26,6 +26,16 @@ namespace AccessData.Queries
             _productoService = productoService;
         }
 
+        public ProductoPedido GetProductoPedidoById(int productoPedidoId)
+        {
+            var db = new QueryFactory(connection, sqlKatacompiler);
+
+            ProductoPedido productoPedido = db.Query("ProductosPedidos").Where("ProductoPedidoId", productoPedidoId).FirstOrDefault<ProductoPedido>();
+
+            return productoPedido;
+        }
+
+
         public ResponseGetCarritoById GetCarritoById(int carritoId)
         {
             var db = new QueryFactory(connection, sqlKatacompiler);
@@ -41,11 +51,11 @@ namespace AccessData.Queries
                 .FirstOrDefault<ResponseGetCarritoByIdComprador>();
 
             var idsProductos = db.Query("ProductosPedidos")
-                .Select("ProductoId")
+                .Select("ProductoId", "ProductoPedidoId")
                 .Where("CarritoId", "=", carritoId)
                 .Get<int>().ToList();
 
-            List<ResponseGetProductoById> listaProductos = new List<ResponseGetProductoById>();
+            List<ResponseGetProductoById> listaProductos = new();
             foreach (var item in idsProductos)
             {
                 ResponseGetProductoById producto = _productoService.GetProductoById(item);
@@ -57,7 +67,7 @@ namespace AccessData.Queries
                 CarritoId = carrito.CarritoId,
                 PrecioTotal = carrito.PrecioTotal,
                 Comprador = comprador,
-                ProductoPedidos = listaProductos
+                ProductoPedidos = listaProductos // Tiene que devolver lista de ProductoPedido en vez de una lista de Producto
             };
 
         }

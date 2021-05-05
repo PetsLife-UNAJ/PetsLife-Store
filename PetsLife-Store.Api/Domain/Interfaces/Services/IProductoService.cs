@@ -15,6 +15,7 @@ namespace Domain.Interfaces
         public List<ProductoDto> GetProductos();
         bool DeleteProducto(int id);
         bool UpdateProducto(int id, ProductoDto productoDto);
+        public bool UpdateProductoStock(int idProducto, int newStock);
 
     }
 }
