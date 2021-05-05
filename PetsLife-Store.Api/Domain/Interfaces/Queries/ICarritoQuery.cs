@@ -9,6 +9,6 @@ namespace Domain.Interfaces.Queries
 {
     public interface ICarritoQuery
     {
-        public CarritoDTO GetCarritoById(int id);
+        public ResponseGetCarritoById GetCarritoById(int id);
     }
 }

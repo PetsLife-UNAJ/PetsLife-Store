@@ -46,7 +46,7 @@ namespace Application.Services
             _repository.Add(productoPedido);
         }
 
-        public CarritoDTO GetCarritoById(int idCarrito)
+        public ResponseGetCarritoById GetCarritoById(int idCarrito)
         {
             return _query.GetCarritoById(idCarrito);
         }

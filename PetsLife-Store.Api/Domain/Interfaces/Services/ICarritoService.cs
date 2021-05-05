@@ -9,7 +9,7 @@ namespace Domain.Interfaces.Services
 {
     public interface ICarritoService
     {
-        public CarritoDTO GetCarritoById(int id);
+        public ResponseGetCarritoById GetCarritoById(int id);
         public int CalcularPrecioTotal(List<ResponseGetProductoById> productos);
         public void AddProductoPedido(int idproducto, int idcarrito);
 

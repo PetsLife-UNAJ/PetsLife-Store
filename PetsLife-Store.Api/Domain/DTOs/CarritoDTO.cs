@@ -9,7 +9,7 @@ namespace Domain.DTOs
 {
     public class CarritoDTO
     {
-        public List<ProductoPedido> ProductoPedidos { get; set; }
+        public int CarritoId { get; set; }
         public int PrecioTotal { get; set; }
         public int CompradorId { get; set; }
 
