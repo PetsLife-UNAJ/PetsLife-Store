@@ -22,13 +22,12 @@ namespace PetsLife_Store.Api.Controllers
         }
 
         [HttpPost("{idproducto}, {idcarrito}")]
-        [ProducesResponseType(204)]
+        [ProducesResponseType(typeof(GenericsCreatedResponseDto), StatusCodes.Status201Created)]
         public IActionResult AddProductoPedido(int idproducto, int idcarrito)
         {
             try
             {
-                _service.AddProductoPedido(idproducto, idcarrito);
-                return new JsonResult(null);
+                return new JsonResult(_service.AddProductoPedido(idproducto, idcarrito)) { StatusCode = 201};
             }
             catch (Exception e)
             {
