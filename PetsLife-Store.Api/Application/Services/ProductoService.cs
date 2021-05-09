@@ -63,7 +63,7 @@ namespace Application.Services
         {
             return _query.GetProductoById(id);
         }
-        public List<ProductoDto> GetProductos()
+        public List<ResponseGetAllProductos> GetProductos()
         {
             return _query.GetProductos();
         }

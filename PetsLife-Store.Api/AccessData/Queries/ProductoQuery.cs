@@ -28,18 +28,18 @@ namespace AccessData.Queries
                 , "CantidadStock","Precio"
                 ).Where("ProductoId", "=", id);
             var query = producto.Get<ResponseGetProductoById>();
-            // return query.ToList();
+
             return query.FirstOrDefault();
         }
 
-        public List<ProductoDto> GetProductos()
+        public List<ResponseGetAllProductos> GetProductos()
         {
             var db = new QueryFactory(connection, sqlKatacompiler);
             var producto = db.Query("Productos").Select(
                 "Nombre", "Categoria", "Imagen"
                 , "CantidadStock", "Precio", "ProductoId"
                 );
-            var query = producto.Get<ProductoDto>();
+            var query = producto.Get<ResponseGetAllProductos>();
             return query.ToList();
         }
     }

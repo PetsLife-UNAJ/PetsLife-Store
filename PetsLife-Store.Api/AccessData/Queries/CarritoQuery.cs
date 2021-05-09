@@ -67,7 +67,7 @@ namespace AccessData.Queries
                 CarritoId = carrito.CarritoId,
                 PrecioTotal = carrito.PrecioTotal,
                 Comprador = comprador,
-                ProductoPedidos = listaProductos // Tiene que devolver lista de ProductoPedido en vez de una lista de Producto
+                ProductoPedidos = listaProductos 
             };
 
         }

@@ -11,7 +11,7 @@ namespace Domain.Interfaces.Queries
     {
 
         public ResponseGetProductoById GetProductoById(int id);
-        public List<ProductoDto> GetProductos();
+        public List<ResponseGetAllProductos> GetProductos();
 
     }
 }
