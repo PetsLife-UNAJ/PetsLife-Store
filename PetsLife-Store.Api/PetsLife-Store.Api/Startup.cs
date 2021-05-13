@@ -1,24 +1,23 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.EntityFrameworkCore;
-using FluentValidation.AspNetCore;
-using FluentValidation;
-using Domain.Entities;
 using AccessData;
-using AccessData.Validation;
-using AccessData.Commands.Repository;
 using AccessData.Commands;
+using AccessData.Commands.Repository;
 using AccessData.Queries;
+using Application.Filters;
 using Application.Services;
 using Domain.Interfaces;
-using SqlKata.Compilers;
-using System.Data;
-using System.Data.SqlClient;
 using Domain.Interfaces.Queries;
 using Domain.Interfaces.Services;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using SqlKata.Compilers;
+using System;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace PetsLife_Store.Api
 {
@@ -54,11 +53,21 @@ namespace PetsLife_Store.Api
 
             services.AddSwaggerGen();
 
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<ValidationFilter>();
+            }).AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+            });
+            /*
             services.AddTransient<IValidator<Carrito>, CarritoValidator>();
             services.AddTransient<IValidator<Comprador>, CompradorValidator>();
             services.AddTransient<IValidator<Producto>, ProductoValidator>();
             services.AddTransient<IValidator<ProductoPedido>, ProductoPedidoValidator>();
             services.AddTransient<IValidator<Tienda>, TiendaValidator>();
+
+            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

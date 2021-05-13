@@ -36,10 +36,10 @@ namespace Application.Services
                 Precio = producto.Precio,
                 TiendaId = 1
             };
-
+            /*
             ProductoValidator validator = new ProductoValidator();
             validator.ValidateAndThrow(entity);
-
+            */
             _repository.Add<Producto>(entity);
 
             return entity;
@@ -80,8 +80,10 @@ namespace Application.Services
             producto.Precio = productoDto.Precio;
             producto.TiendaId = 1;
 
+            /*
             ProductoValidator validator = new();
             validator.ValidateAndThrow(producto);
+            */
 
             _repository.Update<Producto>(producto);
             return true;
