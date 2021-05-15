@@ -36,33 +36,35 @@ namespace AccessData.Queries
         }
 
 
-        public ResponseGetCarritoById GetCarritoById(int carritoId)
+        public GetCarritoDTO GetCarritoById(int carritoId)
         {
             var db = new QueryFactory(connection, sqlKatacompiler);
 
             var carrito = db.Query("Carritos")
                 .Select("CarritoId", "PrecioTotal", "CompradorId")
                 .Where("CarritoId", "=", carritoId)
-                .FirstOrDefault<CarritoDTO>();
+                .FirstOrDefault<AddCarritoDTO>();
 
+            // falla si carrito es null.
             var comprador = db.Query("Compradores")
                 .Select("CompradorId", "Nombre", "Email")
                 .Where("CompradorId", "=", carrito.CompradorId)
-                .FirstOrDefault<ResponseGetCarritoByIdComprador>();
+                .FirstOrDefault<GetCompradorDTO>();
 
+            // falla si carrito es null.
             var idsProductos = db.Query("ProductosPedidos")
                 .Select("ProductoId", "ProductoPedidoId")
                 .Where("CarritoId", "=", carritoId)
                 .Get<int>().ToList();
 
-            List<ResponseGetProductoById> listaProductos = new();
+            List<GetProductoDTO> listaProductos = new();
             foreach (var item in idsProductos)
             {
-                ResponseGetProductoById producto = _productoService.GetProductoById(item);
+                GetProductoDTO producto = _productoService.GetProductoById(item);
                 listaProductos.Add(producto);
             }
 
-            return new ResponseGetCarritoById
+            return new GetCarritoDTO
             {
                 CarritoId = carrito.CarritoId,
                 PrecioTotal = carrito.PrecioTotal,

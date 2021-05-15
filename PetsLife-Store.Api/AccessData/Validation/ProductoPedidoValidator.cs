@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Entities;
 using FluentValidation;
-using Domain.Entities;
 
 namespace AccessData.Validation
 {
@@ -12,8 +7,13 @@ namespace AccessData.Validation
     {
         public ProductoPedidoValidator()
         {
-            RuleFor(e => e.Cantidad).NotNull().WithMessage("La cantidad del producto es requerida.");
-            RuleFor(e => e.Producto).NotNull().WithMessage("El producto es requerido.");
+            RuleFor(e => e.Cantidad)
+                .GreaterThan(-1).WithMessage($"La cantidad debe estar entre cero y {int.MaxValue}")
+                .NotEmpty().WithMessage("La cantidad del producto es requerida.");
+
+            RuleFor(e => e.Producto).NotEmpty().WithMessage("El producto es requerido.");
+            RuleFor(e => e.ProductoId).NotEmpty();
+            RuleFor(e => e.CarritoId).NotEmpty();
         }
 
     }

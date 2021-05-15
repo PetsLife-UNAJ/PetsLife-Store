@@ -1,14 +1,9 @@
-﻿using AccessData.Queries;
-using Application.Services;
-using Domain.DTOs;
+﻿using Domain.DTOs;
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PetsLife_Store.Api.Controllers
 {
@@ -24,7 +19,7 @@ namespace PetsLife_Store.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status201Created)]
-        public IActionResult Post(ProductoDto producto)
+        public IActionResult Post(AddProductoDTO producto)
         {
             try
             {
@@ -91,7 +86,7 @@ namespace PetsLife_Store.Api.Controllers
         [HttpPut("{Id}")]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status404NotFound)]
-        public IActionResult PutMercaderia(int Id, ProductoDto productoDto)
+        public IActionResult PutMercaderia(int Id, AddProductoDTO productoDto)
         {
             try
             {
@@ -113,9 +108,9 @@ namespace PetsLife_Store.Api.Controllers
         }
 
 
-        [HttpPut("{idProducto}, {newStock}")]
+        [HttpPut]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status204NoContent)]
-        public IActionResult UpdateProductoStock(int idProducto, int newStock)
+        public IActionResult UpdateProductoStock([FromQuery]int idProducto, int newStock)
         {
             try
             {

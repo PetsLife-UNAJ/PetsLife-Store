@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AccessData.Commands.Repository
+﻿namespace AccessData.Commands.Repository
 {
     public interface IGenericsRepository
     {
@@ -12,8 +6,5 @@ namespace AccessData.Commands.Repository
         void Update<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
         T Exists<T>(int id) where T : class;
-
-        public IQueryable GetProductoById(int id);
-        public IQueryable GetProductos();
     }
 }

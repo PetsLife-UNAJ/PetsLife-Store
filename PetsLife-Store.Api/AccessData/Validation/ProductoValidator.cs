@@ -1,9 +1,10 @@
 ﻿using Domain.DTOs;
+using Domain.Entities;
 using FluentValidation;
 
 namespace AccessData.Validation
 {
-    public class ProductoValidator : AbstractValidator<ProductoDto>
+    public class ProductoValidator : AbstractValidator<Producto>
     {
         public ProductoValidator()
         {

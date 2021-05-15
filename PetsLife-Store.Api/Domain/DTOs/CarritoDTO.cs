@@ -1,17 +1,19 @@
-﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Domain.DTOs
 {
-    public class CarritoDTO
+    public class AddCarritoDTO
     {
         public int CarritoId { get; set; }
         public int PrecioTotal { get; set; }
         public int CompradorId { get; set; }
+    }
 
+    public class GetCarritoDTO
+    {
+        public int CarritoId { get; set; }
+        public int PrecioTotal { get; set; }
+        public GetCompradorDTO Comprador { get; set; }
+        public List<GetProductoDTO> ProductoPedidos { get; set; }
     }
 }
