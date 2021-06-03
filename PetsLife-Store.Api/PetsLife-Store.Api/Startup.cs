@@ -37,6 +37,11 @@ namespace PetsLife_Store.Api
 
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(sqlConn));
 
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
+
             services.AddControllers().AddFluentValidation();
 
             // SQLKATA
@@ -84,6 +89,8 @@ namespace PetsLife_Store.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+                
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();
 

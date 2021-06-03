@@ -46,7 +46,7 @@ namespace PetsLife_Store.Api.Controllers
             }
         }
 
-        [HttpGet("/Productos")]
+        [HttpGet("/api/Productos")]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status200OK)]
         public IActionResult GetProductos()
         {

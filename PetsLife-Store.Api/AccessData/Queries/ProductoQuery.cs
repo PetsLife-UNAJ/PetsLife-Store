@@ -23,24 +23,16 @@ namespace AccessData.Queries
         public GetProductoDTO GetProductoById(int id)
         {
             var db = new QueryFactory(connection, sqlKatacompiler);
-            var producto = db.Query("Productos").Select(
-                "ProductoId", "Nombre", "Categoria", "Imagen"
-                , "CantidadStock","Precio"
-                ).Where("ProductoId", "=", id);
-            var query = producto.Get<GetProductoDTO>();
-
-            return query.FirstOrDefault();
+            GetProductoDTO producto = db.Query("Productos").Where("ProductoId", id).Get<GetProductoDTO>().FirstOrDefault();
+            
+            return producto;
         }
 
         public List<GetProductoDTO> GetProductos()
         {
             var db = new QueryFactory(connection, sqlKatacompiler);
-            var producto = db.Query("Productos").Select(
-                "Nombre", "Categoria", "Imagen"
-                , "CantidadStock", "Precio", "ProductoId"
-                );
-            var query = producto.Get<GetProductoDTO>();
-            return query.ToList();
+            List<GetProductoDTO> productos = db.Query("Productos").Get<GetProductoDTO>().ToList();
+            return productos;
         }
     }
 }
