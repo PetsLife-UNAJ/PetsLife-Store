@@ -28,6 +28,8 @@ namespace Application.Services
                 Imagen = producto.Imagen,
                 CantidadStock = producto.CantidadStock,
                 Precio = producto.Precio,
+                Descripcion = producto.Descripcion,
+                Rating = producto.Rating,
                 TiendaId = 1
             };
             
@@ -69,6 +71,8 @@ namespace Application.Services
             producto.Imagen = productoDto.Imagen;
             producto.CantidadStock = productoDto.CantidadStock;
             producto.Precio = productoDto.Precio;
+            producto.Descripcion = productoDto.Descripcion;
+            producto.Rating = productoDto.Rating;
             producto.TiendaId = 1;
 
             _repository.Update<Producto>(producto);
