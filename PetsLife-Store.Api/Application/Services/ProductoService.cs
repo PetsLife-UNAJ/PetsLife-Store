@@ -7,7 +7,6 @@ using System.Collections.Generic;
 
 namespace Application.Services
 {
-
     public class ProductoService : IProductoService
     {
         private readonly IGenericsRepository _repository;
@@ -32,7 +31,7 @@ namespace Application.Services
                 Rating = producto.Rating,
                 TiendaId = 1
             };
-            
+
             _repository.Add<Producto>(entity);
 
             return entity;
@@ -41,7 +40,7 @@ namespace Application.Services
         public bool DeleteProducto(int id)
         {
             Producto producto = _repository.Exists<Producto>(id);
-            if(producto == null)
+            if (producto == null)
             {
                 return false;
             }
@@ -64,7 +63,7 @@ namespace Application.Services
         public bool UpdateProducto(int id, AddProductoDTO productoDto)
         {
             Producto producto = _repository.Exists<Producto>(id);
-            if(producto == null) return false;
+            if (producto == null) return false;
 
             producto.Nombre = productoDto.Nombre;
             producto.Categoria = productoDto.Categoria;
@@ -89,6 +88,5 @@ namespace Application.Services
 
             return true;
         }
-
     }
 }

@@ -11,15 +11,19 @@ using Domain.Interfaces.Queries;
 using Domain.Interfaces.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using SqlKata.Compilers;
+using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace PetsLife_Store.Api
 {
@@ -33,6 +37,28 @@ namespace PetsLife_Store.Api
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            //AUTH CONFIG
+            var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("SecretKey"));
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.FromMinutes(0)
+                };
+            });
+            //FIN AUTH CONFIG
+
             var sqlConn = Configuration.GetConnectionString("SQLConnection");
 
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(sqlConn));
@@ -58,7 +84,6 @@ namespace PetsLife_Store.Api
             services.AddTransient<IProductoService, ProductoService>();
             services.AddTransient<ICarritoService, CarritoService>();
 
-
             // Fluent Validator services
             services.AddTransient<IValidator<Carrito>, CarritoValidator>();
             services.AddTransient<IValidator<Comprador>, CompradorValidator>();
@@ -68,7 +93,6 @@ namespace PetsLife_Store.Api
             services.AddTransient<IValidator<AddProductoPedidoDTO>, ProductoPedidoDtoValidator>();
 
             services.AddSwaggerGen();
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,9 +113,10 @@ namespace PetsLife_Store.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-                
+
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

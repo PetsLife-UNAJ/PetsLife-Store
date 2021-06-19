@@ -1,6 +1,7 @@
 ﻿using Domain.DTOs;
 using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ namespace PetsLife_Store.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class ProductoController : ControllerBase
     {
         private readonly IProductoService _service;
@@ -37,7 +39,6 @@ namespace PetsLife_Store.Api.Controllers
         {
             try
             {
-               
                 return new JsonResult(_service.GetProductoById(id)) { StatusCode = 200 };
             }
             catch (Exception e)
@@ -52,7 +53,6 @@ namespace PetsLife_Store.Api.Controllers
         {
             try
             {
-
                 return new JsonResult(_service.GetProductos()) { StatusCode = 200 };
             }
             catch (Exception e)
@@ -77,7 +77,7 @@ namespace PetsLife_Store.Api.Controllers
                     return NotFound();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
@@ -98,19 +98,16 @@ namespace PetsLife_Store.Api.Controllers
                 {
                     return NotFound();
                 }
-
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-
         }
-
 
         [HttpPut]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status204NoContent)]
-        public IActionResult UpdateProductoStock([FromQuery]int idProducto, int newStock)
+        public IActionResult UpdateProductoStock([FromQuery] int idProducto, int newStock)
         {
             try
             {
@@ -121,8 +118,5 @@ namespace PetsLife_Store.Api.Controllers
                 return BadRequest(e.Message);
             }
         }
-
-
-
     }
 }
