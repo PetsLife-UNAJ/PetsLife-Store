@@ -1,6 +1,7 @@
 ﻿using Domain.DTOs;
 using Domain.Entities;
 using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ namespace PetsLife_Store.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    // [Authorize]
     public class CarritoController : ControllerBase
     {
         private readonly ICarritoService _service;
@@ -19,11 +21,11 @@ namespace PetsLife_Store.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(GetProductoPedidoDTO), StatusCodes.Status201Created)]
-        public IActionResult AddProductoPedido([FromQuery]AddProductoPedidoDTO productoPedidoDTO)
+        public IActionResult AddProductoPedido([FromQuery] AddProductoPedidoDTO productoPedidoDTO)
         {
             try
             {
-                return new JsonResult(_service.AddProductoPedido(productoPedidoDTO)) { StatusCode = 201};
+                return new JsonResult(_service.AddProductoPedido(productoPedidoDTO)) { StatusCode = 201 };
             }
             catch (Exception e)
             {
