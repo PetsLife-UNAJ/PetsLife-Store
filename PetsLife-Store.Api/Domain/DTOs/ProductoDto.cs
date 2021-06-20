@@ -9,7 +9,7 @@
         public int Rating { get; set; }
         public int CantidadStock { get; set; }
         public int Precio { get; set; }
-        public int TiendaId { get; set; }
+       // public int TiendaId { get; set; }
     }
 
     public class GetProductoDTO

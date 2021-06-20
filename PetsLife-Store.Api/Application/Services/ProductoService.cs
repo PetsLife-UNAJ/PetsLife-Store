@@ -56,9 +56,9 @@ namespace Application.Services
         {
             return _query.GetProductoById(id);
         }
-        public List<GetProductoDTO> GetProductos()
+        public List<GetProductoDTO> GetProductos(string categoria)
         {
-            return _query.GetProductos();
+            return _query.GetProductos(categoria);
         }
 
         public bool UpdateProducto(int id, AddProductoDTO productoDto)

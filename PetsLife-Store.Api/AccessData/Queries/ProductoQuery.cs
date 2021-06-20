@@ -28,10 +28,12 @@ namespace AccessData.Queries
             return producto;
         }
 
-        public List<GetProductoDTO> GetProductos()
+        public List<GetProductoDTO> GetProductos(string categoria)
         {
             var db = new QueryFactory(connection, sqlKatacompiler);
-            List<GetProductoDTO> productos = db.Query("Productos").Get<GetProductoDTO>().ToList();
+            List<GetProductoDTO> productos = db.Query("Productos")
+                .When(!string.IsNullOrWhiteSpace(categoria), q => q.WhereLike("Productos.Categoria", $"%{categoria}%"))
+                .Get<GetProductoDTO>().ToList();
             return productos;
         }
     }
