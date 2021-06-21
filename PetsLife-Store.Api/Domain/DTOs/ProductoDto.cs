@@ -24,4 +24,9 @@
         public int Precio { get; set; }
         public int TiendaId { get; set; }
     }
+    public class ResponseProductoDto
+    {
+        public string Entity { get; set; }
+        public string Id { get; set; }
+    }
 }

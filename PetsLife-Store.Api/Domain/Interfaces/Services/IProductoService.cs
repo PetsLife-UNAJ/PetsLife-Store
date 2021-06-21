@@ -6,7 +6,7 @@ namespace Domain.Interfaces
 {
     public interface IProductoService
     {
-        Producto CreateProducto(AddProductoDTO producto);
+        ResponseProductoDto CreateProducto(AddProductoDTO producto);
         public GetProductoDTO GetProductoById(int id);
         public List<GetProductoDTO> GetProductos(string categoria);
         bool DeleteProducto(int id);

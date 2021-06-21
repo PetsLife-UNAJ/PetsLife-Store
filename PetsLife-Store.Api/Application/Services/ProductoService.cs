@@ -18,7 +18,7 @@ namespace Application.Services
             _query = query;
         }
 
-        public Producto CreateProducto(AddProductoDTO producto)
+        public ResponseProductoDto CreateProducto(AddProductoDTO producto)
         {
             var entity = new Producto
             {
@@ -34,7 +34,11 @@ namespace Application.Services
 
             _repository.Add<Producto>(entity);
 
-            return entity;
+            return new ResponseProductoDto
+            {
+                Entity = "Producto",
+                Id = entity.ProductoId.ToString()
+            };
         }
 
         public bool DeleteProducto(int id)
