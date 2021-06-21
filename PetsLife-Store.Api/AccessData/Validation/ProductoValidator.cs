@@ -8,7 +8,7 @@ namespace AccessData.Validation
     {
         public ProductoValidator()
         {
-            RuleFor(e => e.Categoria).NotNull().NotEmpty().WithMessage("La categoria del producto es requerida.");
+            RuleFor(e => e.CategoriaId).NotNull().NotEmpty().WithMessage("La categoria del producto es requerida.");
             RuleFor(e => e.Nombre).NotNull().NotEmpty().WithMessage("El nombre del producto es requerido.");
             RuleFor(e => e.Imagen).NotNull().NotEmpty().WithMessage("La imagen es requerida");
             RuleFor(e => e.Nombre).MaximumLength(100).WithMessage("Cantidad de caracteres del nombre excedido");

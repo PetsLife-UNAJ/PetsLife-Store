@@ -23,7 +23,19 @@ namespace AccessData.Queries
         public GetProductoDTO GetProductoById(int id)
         {
             var db = new QueryFactory(connection, sqlKatacompiler);
-            GetProductoDTO producto = db.Query("Productos").Where("ProductoId", id).Get<GetProductoDTO>().FirstOrDefault();
+            GetProductoDTO producto = db.Query("Productos")
+                .Select("Productos.ProductoId",
+                "Productos.Nombre",
+                "Categorias.Descripcion AS Categoria",
+                "Productos.Imagen",
+                "Productos.Descripcion",
+                "Productos.Rating",
+                "Productos.CantidadStock",
+                "Productos.Precio",
+                "Productos.TiendaId"
+                )
+                .Join("Categorias", "Categorias.CategoriaId", "Productos.CategoriaId")
+                .Where("ProductoId", id).Get<GetProductoDTO>().FirstOrDefault();
             
             return producto;
         }
@@ -32,7 +44,18 @@ namespace AccessData.Queries
         {
             var db = new QueryFactory(connection, sqlKatacompiler);
             List<GetProductoDTO> productos = db.Query("Productos")
-                .When(!string.IsNullOrWhiteSpace(categoria), q => q.WhereLike("Productos.Categoria", $"%{categoria}%"))
+                .Select("Productos.ProductoId",
+                "Productos.Nombre",
+                "Categorias.Descripcion AS Categoria",
+                "Productos.Imagen",
+                "Productos.Descripcion",
+                "Productos.Rating",
+                "Productos.CantidadStock",
+                "Productos.Precio",
+                "Productos.TiendaId"
+                )
+                .Join("Categorias", "Categorias.CategoriaId", "Productos.CategoriaId")
+                .When(!string.IsNullOrWhiteSpace(categoria), q => q.WhereLike("Categorias.Descripcion", $"%{categoria}%"))
                 .Get<GetProductoDTO>().ToList();
             return productos;
         }

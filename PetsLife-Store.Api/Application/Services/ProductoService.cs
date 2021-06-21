@@ -23,7 +23,7 @@ namespace Application.Services
             var entity = new Producto
             {
                 Nombre = producto.Nombre,
-                Categoria = producto.Categoria,
+                CategoriaId = producto.Categoria,
                 Imagen = producto.Imagen,
                 CantidadStock = producto.CantidadStock,
                 Precio = producto.Precio,
@@ -66,7 +66,7 @@ namespace Application.Services
             if (producto == null) return false;
 
             producto.Nombre = productoDto.Nombre;
-            producto.Categoria = productoDto.Categoria;
+            producto.CategoriaId = productoDto.Categoria;
             producto.Imagen = productoDto.Imagen;
             producto.CantidadStock = productoDto.CantidadStock;
             producto.Precio = productoDto.Precio;

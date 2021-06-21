@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using AccessData.Configuration;
 using Domain.Entities;
-using AccessData.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccessData
 {
@@ -14,6 +11,7 @@ namespace AccessData
         public DbSet<Carrito> Carritos { get; set; }
         public DbSet<Comprador> Compradores { get; set; }
         public DbSet<Producto> Productos { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
         public DbSet<ProductoPedido> ProductosPedidos { get; set; }
         public DbSet<Tienda> Tiendas { get; set; }
 
@@ -24,6 +22,7 @@ namespace AccessData
             new ProductoConfiguration()         .Configure(modelBuilder.Entity<Producto>());
             new ProductoPedidoConfiguration()   .Configure(modelBuilder.Entity<ProductoPedido>());
             new TiendaConfiguration()           .Configure(modelBuilder.Entity<Tienda>());
+            new CategoriaConfiguration()        .Configure(modelBuilder.Entity<Categoria>());
         }
 
     }

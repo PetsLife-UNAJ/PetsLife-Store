@@ -79,10 +79,12 @@ namespace PetsLife_Store.Api
 
             services.AddTransient<IProductoQuery, ProductoQuery>();
             services.AddTransient<ICarritoQuery, CarritoQuery>();
+            services.AddTransient<ICategoriaQuery, CategoriaQuery>();
 
             services.AddTransient<IGenericsRepository, GenericsRepository>();
             services.AddTransient<IProductoService, ProductoService>();
             services.AddTransient<ICarritoService, CarritoService>();
+            services.AddTransient<ICategoriaService, CategoriaService>();
 
             // Fluent Validator services
             services.AddTransient<IValidator<Carrito>, CarritoValidator>();
