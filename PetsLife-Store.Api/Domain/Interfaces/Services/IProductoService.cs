@@ -9,6 +9,7 @@ namespace Domain.Interfaces
         ResponseProductoDto CreateProducto(AddProductoDTO producto);
         public GetProductoDTO GetProductoById(int id);
         public List<GetProductoDTO> GetProductos(string categoria);
+        public List<GetProductoDTO> BuscarProductos(string producto);
         bool DeleteProducto(int id);
         bool UpdateProducto(int id, AddProductoDTO productoDto);
         public bool UpdateProductoStock(int idProducto, int newStock);

@@ -7,6 +7,7 @@ namespace Domain.Interfaces.Queries
     {
         public GetProductoDTO GetProductoById(int id);
         public List<GetProductoDTO> GetProductos(string categoria);
+        public List<GetProductoDTO> BuscarProductos(string producto);
 
     }
 }

@@ -49,12 +49,18 @@ namespace PetsLife_Store.Api.Controllers
 
         [HttpGet("/api/Productos")]
         [ProducesResponseType(typeof(Producto), StatusCodes.Status200OK)]
-        public IActionResult GetProductos([FromQuery] string categoria)
+        public IActionResult GetProductos([FromQuery] string categoria , [FromQuery] string producto)
         {
             try
             {
-
-                return new JsonResult(_service.GetProductos(categoria)) { StatusCode = 200 };
+                if (string.IsNullOrEmpty(producto))
+                {
+                    return new JsonResult(_service.GetProductos(categoria)) { StatusCode = 200 };
+                }
+                else
+                {
+                    return new JsonResult(_service.BuscarProductos(producto)) { StatusCode = 200};
+                }
             }
             catch (Exception e)
             {

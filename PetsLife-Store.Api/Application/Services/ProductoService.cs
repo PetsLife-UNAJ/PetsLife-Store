@@ -18,6 +18,11 @@ namespace Application.Services
             _query = query;
         }
 
+        public List<GetProductoDTO> BuscarProductos(string producto)
+        {
+            return _query.BuscarProductos(producto);
+        }
+
         public ResponseProductoDto CreateProducto(AddProductoDTO producto)
         {
             var entity = new Producto
