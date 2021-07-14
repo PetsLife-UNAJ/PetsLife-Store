@@ -67,6 +67,7 @@ namespace AccessData.Queries
                 .Select("Productos.ProductoId",
                 "Productos.Nombre",
                 "Categorias.Descripcion AS Categoria",
+                "Productos.CategoriaId",
                 "Productos.Imagen",
                 "Productos.Descripcion",
                 "Productos.Rating",
